@@ -21,9 +21,7 @@ User.init(
 
 sequelize.sync();
 
-// Use o middleware CORS antes de suas rotas
-app.use(cors()); // Isso permite requisições de qualquer origem
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

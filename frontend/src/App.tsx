@@ -64,7 +64,7 @@ const App = () => {
   return (
     <div className={styles.root}>
       {loading ? (
-        <Loader />
+        <Loader customStyle={{ width: 100, height: 100 }} />
       ) : (
         <div className={styles.tableContainer}>
           <h1 className={styles.tableTitle}>CRUD de Usuários</h1>

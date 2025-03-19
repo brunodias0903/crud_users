@@ -1,12 +1,12 @@
 import styles from "@styles/Loader.module.css";
 import React from "react";
 
-const Loader: React.FC = () => {
-  return (
-    <div className={styles.overlay}>
-      <div className={styles.spinner} />
-    </div>
-  );
+interface LoaderProps {
+  customStyle?: React.CSSProperties;
+}
+
+const Loader: React.FC<LoaderProps> = ({ customStyle }) => {
+  return <div className={styles.spinner} style={{ ...customStyle }} />;
 };
 
 export default Loader;

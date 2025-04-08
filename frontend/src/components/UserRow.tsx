@@ -1,6 +1,6 @@
 import { User } from "@/services/userService";
-import styles from "@styles/UserRow.module.css";
 import React from "react";
+import { Button } from "react-bootstrap";
 import Loader from "./Loader";
 
 interface UserRowProps {
@@ -13,48 +13,66 @@ const UserRow: React.FC<UserRowProps> = ({ user, onEdit, onDelete }) => {
   const [loadingEdit, setLoadingEdit] = React.useState<boolean>(false);
   const [loadingDelete, setLoadingDelete] = React.useState<boolean>(false);
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
     setLoadingEdit(true);
-
-    const newName = prompt(`Editar nome de ${user.name}:`, user.name);
-    if (newName && newName.trim() !== "") {
-      onEdit(user.id, newName);
+    try {
+      const newName = prompt(`Editar nome de ${user.name}:`, user.name);
+      if (newName && newName.trim() !== "") {
+        await onEdit(user.id, newName);
+      }
+    } finally {
+      setLoadingEdit(false);
     }
-
-    setLoadingEdit(false);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     setLoadingDelete(true);
-
-    const confirmation = confirm(
-      `Tem certeza que deseja deletar ${user.name}?`
-    );
-    if (confirmation) {
-      onDelete(user.id);
+    try {
+      const confirmation = confirm(
+        `Tem certeza que deseja deletar ${user.name}?`
+      );
+      if (confirmation) {
+        await onDelete(user.id);
+      }
+    } finally {
+      setLoadingDelete(false);
     }
-
-    setLoadingDelete(false);
   };
 
   return (
-    <tr className={styles.row}>
-      <td className={styles.name}>{user.name}</td>
-      <td className={styles.actions}>
-        <button onClick={handleEdit} className={styles.editButton}>
-          {!loadingEdit ? (
-            "✏️"
-          ) : (
-            <Loader customStyle={{ width: 10, height: 10 }} />
-          )}
-        </button>
-        <button onClick={handleDelete} className={styles.deleteButton}>
-          {!loadingDelete ? (
-            "🗑️"
-          ) : (
-            <Loader customStyle={{ width: 10, height: 10 }} />
-          )}
-        </button>
+    <tr>
+      <td className="align-middle">{user.name}</td>
+      <td className="text-end">
+        <div className="d-flex justify-content-end gap-2">
+          <Button
+            variant="outline-warning"
+            size="sm"
+            onClick={handleEdit}
+            disabled={loadingEdit}
+            className="d-flex align-items-center justify-content-center"
+            style={{ width: "32px", height: "32px" }}
+          >
+            {loadingEdit ? (
+              <Loader customStyle={{ width: 16, height: 16 }} />
+            ) : (
+              <span>✏️</span>
+            )}
+          </Button>
+          <Button
+            variant="outline-danger"
+            size="sm"
+            onClick={handleDelete}
+            disabled={loadingDelete}
+            className="d-flex align-items-center justify-content-center"
+            style={{ width: "32px", height: "32px" }}
+          >
+            {loadingDelete ? (
+              <Loader customStyle={{ width: 16, height: 16 }} />
+            ) : (
+              <span>🗑️</span>
+            )}
+          </Button>
+        </div>
       </td>
     </tr>
   );

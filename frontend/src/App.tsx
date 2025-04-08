@@ -7,8 +7,8 @@ import {
 } from "@/services/userService";
 import Loader from "@components/Loader";
 import UserTable from "@components/UserTable";
-import styles from "@styles/App.module.css";
 import { useCallback, useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -62,23 +62,33 @@ const App = () => {
   }, [fetchUsers]);
 
   return (
-    <div className={styles.root}>
+    <Container fluid className="p-3">
       {loading ? (
-        <Loader customStyle={{ width: 100, height: 100 }} />
+        <Row className="justify-content-center align-items-center min-vh-100">
+          <Col xs={12} className="text-center">
+            <Loader customStyle={{ width: 100, height: 100 }} />
+          </Col>
+        </Row>
       ) : (
-        <div className={styles.tableContainer}>
-          <h1 className={styles.tableTitle}>CRUD de Usuários</h1>
-          <UserTable
-            users={users}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-          />
-          <button className={styles.addButton} onClick={handleAdd}>
-            Adicionar usuário
-          </button>
-        </div>
+        <Row className="justify-content-center">
+          <Col xs={12} md={10} lg={8}>
+            <div className="bg-white p-4 rounded shadow">
+              <h1 className="text-center mb-4">CRUD de Usuários</h1>
+              <UserTable
+                users={users}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+              />
+              <div className="text-center mt-3">
+                <button className="btn btn-primary" onClick={handleAdd}>
+                  Adicionar usuário
+                </button>
+              </div>
+            </div>
+          </Col>
+        </Row>
       )}
-    </div>
+    </Container>
   );
 };
 

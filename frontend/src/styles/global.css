@@ -35,3 +35,13 @@ ul,
 ol {
   list-style: none;
 }
+
+.btn-outline-warning:hover span,
+.btn-outline-danger:hover span {
+  filter: brightness(1.2);
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

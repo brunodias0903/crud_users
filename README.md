@@ -34,3 +34,31 @@ Before you begin, ensure you have the following installed:
 ```bash
 git clone https://github.com/brunodias0903/crud_users.git
 ```
+
+2. Install dependencies of backend:
+
+```bash
+cd backend
+npm install
+```
+
+3. Install dependencies of frontend:
+
+```bash
+cd backend
+npm install OR yarn
+```
+
+4. Run backend server
+
+```bash
+cd backend
+npm start
+```
+
+5. Run frontend
+
+```bash
+cd frontend
+npm run dev OR yarn dev
+```
